@@ -1,4 +1,4 @@
-package kriuchkov.maksim.game.util;
+package kriuchkov.maksim.game.logic.util;
 
 import java.util.Random;
 

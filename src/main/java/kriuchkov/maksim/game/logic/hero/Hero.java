@@ -1,8 +1,8 @@
-package kriuchkov.maksim.game;
+package kriuchkov.maksim.game.logic.hero;
 
-import kriuchkov.maksim.game.util.RNG;
+import kriuchkov.maksim.game.logic.util.RNG;
 
-abstract class Hero {
+public abstract class Hero {
 
     protected int maxHealth;
     protected int currentHealth;
@@ -20,7 +20,7 @@ abstract class Hero {
         this.alive = true;
     }
 
-    void hit(Hero target) {
+    public void hit(Hero target) {
         if (!this.isAlive()) {
             System.out.println(name + ": мертвый герой бить не может!");
             return;
@@ -40,9 +40,9 @@ abstract class Hero {
         target.infoShort();
     }
 
-    abstract void heal(Hero target);
+    public abstract void heal(Hero target);
 
-    void takeDamage(int damage) {
+    public void takeDamage(int damage) {
         if(!alive) {
             System.out.println("Герой уже мертвый!");
         } else {
@@ -59,7 +59,7 @@ abstract class Hero {
         return currentHealth;
     }
 
-    void takeHeal(int health) {
+    public void takeHeal(int health) {
         if (alive) {
             currentHealth += health;
             if (currentHealth > maxHealth)
@@ -67,14 +67,14 @@ abstract class Hero {
         }
     }
 
-    void infoShort() {
+    public void infoShort() {
         if (alive)
             System.out.printf("%s: %d/%d hp\n", name, currentHealth, maxHealth);
         else
             System.out.printf("%s: герой мертв\n", name);
     }
 
-    void infoFull() {
+    public void infoFull() {
         if (alive)
             System.out.printf("%s: %d/%d hp, урон %d\n", name, currentHealth, maxHealth, damage);
         else

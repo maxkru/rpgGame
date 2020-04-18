@@ -1,8 +1,8 @@
-package kriuchkov.maksim.game;
+package kriuchkov.maksim.game.logic.hero;
 
-import kriuchkov.maksim.game.util.RNG;
+import kriuchkov.maksim.game.logic.util.RNG;
 
-class Assassin extends Hero {
+public class Assassin extends Hero {
 
     private static final float CRIT_FACTOR = 2f;
     private float criticalHitChance;
@@ -14,7 +14,7 @@ class Assassin extends Hero {
     }
 
     @Override
-    void heal(Hero target) {
+    public void heal(Hero target) {
         System.out.println("Убийцы не умеют лечить!");
     }
 
@@ -25,7 +25,7 @@ class Assassin extends Hero {
     }
 
     @Override
-    void infoFull() {
+    public void infoFull() {
         if (alive)
             System.out.printf("%s: убийца, %d/%d hp, урон %d, шанс на крит %.0f%%\n", name, currentHealth, maxHealth, damage, criticalHitChance * 100f);
         else

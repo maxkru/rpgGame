@@ -1,15 +1,15 @@
-package kriuchkov.maksim.game;
+package kriuchkov.maksim.game.logic.hero;
 
-import kriuchkov.maksim.game.util.RNG;
+import kriuchkov.maksim.game.logic.util.RNG;
 
-class Doctor extends Hero {
+public class Doctor extends Hero {
 
     public Doctor(int health, String name, int damage, int addHeal) {
         super(health, name, damage, addHeal);
     }
 
     @Override
-    void heal(Hero target) {
+    public void heal(Hero target) {
         if (!this.isAlive()) {
             System.out.println(name + ": мертвый герой лечить не может!");
             return;
@@ -26,7 +26,7 @@ class Doctor extends Hero {
     }
 
     @Override
-    void infoFull() {
+    public void infoFull() {
         if (alive)
             System.out.printf("%s: доктор, %d/%d hp, урон %d, лечение %d\n", name, currentHealth, maxHealth, damage, addHeal);
         else
