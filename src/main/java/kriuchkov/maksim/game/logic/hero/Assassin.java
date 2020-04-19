@@ -25,10 +25,10 @@ public class Assassin extends Hero {
     }
 
     @Override
-    public void infoFull() {
+    public String toString() {
         if (alive)
-            System.out.printf("%s: убийца, %d/%d hp, урон %d, шанс на крит %.0f%%\n", name, currentHealth, maxHealth, damage, criticalHitChance * 100f);
+            return String.format("%s: убийца, %d/%d hp, урон %d, шанс на крит %.0f%%\n", name, currentHealth, maxHealth, damage, criticalHitChance * 100f);
         else
-            System.out.printf("%s: убийца, герой мертв, урон %d, шанс на крит %.0f%%\n", name, damage, criticalHitChance * 100f);
+            return String.format("%s: убийца, герой мертв, урон %d, шанс на крит %.0f%%\n", name, damage, criticalHitChance * 100f);
     }
 }

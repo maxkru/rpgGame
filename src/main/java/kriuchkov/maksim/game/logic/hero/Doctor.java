@@ -26,10 +26,10 @@ public class Doctor extends Hero {
     }
 
     @Override
-    public void infoFull() {
+    public String toString() {
         if (alive)
-            System.out.printf("%s: доктор, %d/%d hp, урон %d, лечение %d\n", name, currentHealth, maxHealth, damage, addHeal);
+            return String.format("%s: доктор, %d/%d hp, урон %d, лечение %d\n", name, currentHealth, maxHealth, damage, addHeal);
         else
-            System.out.printf("%s: доктор, герой мертв, урон %d, лечение %d\n", name, damage, addHeal);
+            return String.format("%s: доктор, герой мертв, урон %d, лечение %d\n", name, damage, addHeal);
     }
 }

@@ -75,10 +75,15 @@ public abstract class Hero {
     }
 
     public void infoFull() {
+        System.out.println(this);
+    }
+
+    @Override
+    public String toString() {
         if (alive)
-            System.out.printf("%s: %d/%d hp, урон %d\n", name, currentHealth, maxHealth, damage);
+            return String.format("%s: %d/%d hp, урон %d\n", name, currentHealth, maxHealth, damage);
         else
-            System.out.printf("%s: герой мертв, урон %d\n", name, damage);
+            return String.format("%s: герой мертв, урон %d\n", name, damage);
     }
 
     private void checkAlive() {

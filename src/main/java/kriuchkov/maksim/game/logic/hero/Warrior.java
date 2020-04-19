@@ -18,4 +18,12 @@ public class Warrior extends Hero {
         else
             System.out.printf("%s: воин, герой мертв, урон %d\n", name, damage);
     }
+
+    @Override
+    public String toString() {
+        if (alive)
+            return String.format("%s: воин, %d/%d hp, урон %d\n", name, currentHealth, maxHealth, damage);
+        else
+            return String.format("%s: воин, герой мертв, урон %d\n", name, damage);
+    }
 }
