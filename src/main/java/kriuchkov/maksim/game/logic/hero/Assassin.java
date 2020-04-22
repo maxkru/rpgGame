@@ -15,7 +15,7 @@ public class Assassin extends Hero {
 
     @Override
     public void heal(Hero target) {
-        System.out.println("Убийцы не умеют лечить!");
+        observer.outputMessage("Убийцы не умеют лечить!");
     }
 
     @Override

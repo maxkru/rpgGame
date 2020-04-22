@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import kriuchkov.maksim.game.logic.Battle;
 
 import java.io.IOException;
 
@@ -14,7 +15,10 @@ public class Game extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("mainWindow"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Game.class.getResource("mainWindow.fxml"));
+        scene = new Scene(fxmlLoader.load());
+        MainWindowController controller = fxmlLoader.getController();
+        controller.init();
         stage.setScene(scene);
         stage.show();
     }

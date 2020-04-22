@@ -19,6 +19,6 @@
     <Label text="Команда 2"/>
     <ListView fx:id="team2ListView"/>
     <Label text="Вывод"/>
-    <ListView fx:id="outputListView"/>
-    <Button fx:id="secondaryButton" text="Exit" onAction="#exit"/>
+    <TextArea fx:id="outputTextArea"/>
+    <Button fx:id="secondaryButton" text="Start" onAction="#startBattle"/>
 </VBox>

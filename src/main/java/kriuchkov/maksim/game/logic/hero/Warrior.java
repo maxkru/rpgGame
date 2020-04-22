@@ -8,15 +8,15 @@ public class Warrior extends Hero {
 
     @Override
     public void heal(Hero target) {
-        System.out.println("Воины не умеют лечить!");
+        observer.outputMessage("Воины не умеют лечить!");
     }
 
     @Override
     public void infoFull() {
         if (alive)
-            System.out.printf("%s: воин, %d/%d hp, урон %d\n", name, currentHealth, maxHealth, damage);
+            observer.outputMessage(String.format("%s: воин, %d/%d hp, урон %d\n", name, currentHealth, maxHealth, damage));
         else
-            System.out.printf("%s: воин, герой мертв, урон %d\n", name, damage);
+            observer.outputMessage(String.format("%s: воин, герой мертв, урон %d\n", name, damage));
     }
 
     @Override

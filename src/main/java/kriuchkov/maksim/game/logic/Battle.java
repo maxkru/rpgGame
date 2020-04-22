@@ -1,5 +1,6 @@
 package kriuchkov.maksim.game.logic;
 
+import kriuchkov.maksim.game.BattleObserver;
 import kriuchkov.maksim.game.logic.hero.Assassin;
 import kriuchkov.maksim.game.logic.hero.Doctor;
 import kriuchkov.maksim.game.logic.hero.Hero;
@@ -10,63 +11,71 @@ public class Battle {
 
     private static final int NUMBER_OF_ROUNDS = 30;
 
-    private static RNG rng = RNG.getInstance();
+    private final RNG rng = RNG.getInstance();
 
-    public static void main(String[] args) {
+    private BattleObserver observer;
+    private Team team1;
+    private Team team2;
 
-        Team team1 = new Team (
-                new Warrior(250, "Тигрил", 11, 0),
-                new Assassin(150, "Акали", 14, 0, 0.5f),
-                new Doctor(120, "Жанна", 4, 8)
-        );
+    private Object mon = new Object();
 
+    public Battle(BattleObserver observer, Team team1, Team team2) {
+        this.observer = observer;
+        this.team1 = team1;
+        this.team2 = team2;
 
-        Team team2 = new Team (
-                new Warrior(290, "Минотавр", 10, 0),
-                new Assassin(160, "Джинкс", 14, 0, 0.4f),
-                new Doctor(110, "Зои", 4, 9)
-        );
+        for (Hero hero : team1.getHeroes())
+            hero.setObserver(observer);
+        for (Hero hero : team2.getHeroes())
+            hero.setObserver(observer);
+    }
 
+    public void battle() {
         team1.setEnemyTeam(team2);
         team2.setEnemyTeam(team1);
 
         for (int j = 0; j < NUMBER_OF_ROUNDS; j++) {
-//            System.out.println("---------------");
-//            System.out.println("Раунд " + (j + 1));
+            team1.setAllAliveAsReady();
+            team2.setAllAliveAsReady();
+            observer.outputMessage("---------------\n");
+            observer.outputMessage("Раунд " + (j + 1) + "\n");
             while (team1.hasReadyHeroes() || team2.hasReadyHeroes()) {
                 if (rng.roll(0, 1) == 0) {
                     team1.randomAct();
+                    observer.updateTeamViews();
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {}
                     team2.randomAct();
+                    observer.updateTeamViews();
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {}
                 } else {
                     team2.randomAct();
+                    observer.updateTeamViews();
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {}
                     team1.randomAct();
+                    observer.updateTeamViews();
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {}
                 }
             }
             if (!team1.hasAliveHeroes()) {
-//                System.out.println("Команда 1 уничтожена!");
+                observer.outputMessage("Команда 1 уничтожена!");
                 break;
             }
             if (!team2.hasAliveHeroes()) {
-//                System.out.println("Команда 2 уничтожена!");
+                observer.outputMessage("Команда 2 уничтожена!");
                 break;
             }
-            team1.setAllAliveAsReady();
-            team2.setAllAliveAsReady();
+            observer.updateTeamViews();
         }
 
 //        printTeams(team1, team2);
-    }
-
-    private static void printTeams(Hero[] team1, Hero[] team2) {
-        System.out.println("---------------");
-        System.out.println("Команда 1:");
-        for (Hero t1: team1) {
-            t1.infoFull();
-        }
-        System.out.println("Команда 2:");
-        for (Hero t2: team2) {
-            t2.infoFull();
-        }
     }
 
 

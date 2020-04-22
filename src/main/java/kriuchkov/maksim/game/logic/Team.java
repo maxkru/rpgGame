@@ -32,10 +32,13 @@ public class Team {
     }
 
     public void randomAct() {
+        if (readyHeroes.isEmpty())
+            return;
+
         Hero actor = this.pickRandomReady();
         if (actor instanceof Doctor && !this.onlyDoctorsAlive()) {
             actor.heal(this.pickRandomAlive());
-        } else {
+        } else if (enemyTeam.hasAliveHeroes()) {
             actor.hit(enemyTeam.pickRandomAlive());
             enemyTeam.renewAliveList();
         }

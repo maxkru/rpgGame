@@ -1,5 +1,6 @@
 package kriuchkov.maksim.game.logic.hero;
 
+import kriuchkov.maksim.game.BattleObserver;
 import kriuchkov.maksim.game.logic.util.RNG;
 
 public abstract class Hero {
@@ -10,6 +11,8 @@ public abstract class Hero {
     protected int damage;
     protected int addHeal;
     protected boolean alive;
+
+    protected BattleObserver observer;
 
     public Hero(int maxHealth, String name, int damage, int addHeal) {
         this.maxHealth = maxHealth;
@@ -22,21 +25,21 @@ public abstract class Hero {
 
     public void hit(Hero target) {
         if (!this.isAlive()) {
-            System.out.println(name + ": мертвый герой бить не может!");
+            observer.outputMessage(name + ": мертвый герой бить не может!\n");
             return;
         }
         if (target == this) {
-            System.out.println(name + " попробовал ударить себя. Не получилось.");
+            observer.outputMessage(name + " попробовал ударить себя. Не получилось.\n");
             return;
         }
         if (!target.isAlive()) {
-            System.out.printf("%s попытался ударить мёртвого героя %s\n", this.name, target.name);
+            observer.outputMessage(String.format("%s попытался ударить мёртвого героя %s\n", this.name, target.name));
             return;
         }
 
         int damage = calculateDamageForHit();
         target.takeDamage(damage);
-        System.out.printf("%s наносит %d урона герою %s%s\n", this.name, damage, target.name, target.isAlive() ? "" : " и убивает его!");
+        observer.outputMessage(String.format("%s наносит %d урона герою %s%s\n", this.name, damage, target.name, target.isAlive() ? "" : " и убивает его!"));
         target.infoShort();
     }
 
@@ -44,7 +47,7 @@ public abstract class Hero {
 
     public void takeDamage(int damage) {
         if(!alive) {
-            System.out.println("Герой уже мертвый!");
+            observer.outputMessage("Герой уже мертвый!\n");
         } else {
             currentHealth -= damage;
             checkAlive();
@@ -69,13 +72,13 @@ public abstract class Hero {
 
     public void infoShort() {
         if (alive)
-            System.out.printf("%s: %d/%d hp\n", name, currentHealth, maxHealth);
+            observer.outputMessage(String.format("%s: %d/%d hp\n", name, currentHealth, maxHealth));
         else
-            System.out.printf("%s: герой мертв\n", name);
+            observer.outputMessage(String.format("%s: герой мертв\n", name));
     }
 
     public void infoFull() {
-        System.out.println(this);
+        observer.outputMessage(this.toString());
     }
 
     @Override
@@ -98,5 +101,9 @@ public abstract class Hero {
 
     protected int calculateDamageForHit() {
         return RNG.getInstance().roll(damage * 3 / 4, damage * 5 / 4);
+    }
+
+    public void setObserver(BattleObserver observer) {
+        this.observer = observer;
     }
 }
