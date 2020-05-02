@@ -20,5 +20,6 @@
     <ListView fx:id="team2ListView"/>
     <Label text="Вывод"/>
     <TextArea fx:id="outputTextArea"/>
-    <Button fx:id="secondaryButton" text="Start" onAction="#startBattle"/>
+    <Button fx:id="startButton" text="Start" onAction="#startBattle"/>
+    <Button fx:id="updateButton" text="Update" onAction="#updateText"/>
 </VBox>

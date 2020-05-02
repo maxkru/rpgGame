@@ -1,10 +1,7 @@
 package kriuchkov.maksim.game.logic;
 
 import kriuchkov.maksim.game.BattleObserver;
-import kriuchkov.maksim.game.logic.hero.Assassin;
-import kriuchkov.maksim.game.logic.hero.Doctor;
 import kriuchkov.maksim.game.logic.hero.Hero;
-import kriuchkov.maksim.game.logic.hero.Warrior;
 import kriuchkov.maksim.game.logic.util.RNG;
 
 public class Battle {
@@ -42,23 +39,23 @@ public class Battle {
             while (team1.hasReadyHeroes() || team2.hasReadyHeroes()) {
                 if (rng.roll(0, 1) == 0) {
                     team1.randomAct();
-                    observer.updateTeamViews();
+                    observer.updateTeams();
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {}
                     team2.randomAct();
-                    observer.updateTeamViews();
+                    observer.updateTeams();
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {}
                 } else {
                     team2.randomAct();
-                    observer.updateTeamViews();
+                    observer.updateTeams();
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {}
                     team1.randomAct();
-                    observer.updateTeamViews();
+                    observer.updateTeams();
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {}
@@ -72,7 +69,7 @@ public class Battle {
                 observer.outputMessage("Команда 2 уничтожена!");
                 break;
             }
-            observer.updateTeamViews();
+            observer.updateTeams();
         }
 
 //        printTeams(team1, team2);

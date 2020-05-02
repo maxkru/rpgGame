@@ -47,7 +47,7 @@ public class BattleObserver {
         team2 = team;
     }
 
-    public void updateTeamViews() {
-        controller.updateTeamListViews(team1, team2);
+    public void updateTeams() {
+        controller.setTeams(team1, team2);
     }
 }
